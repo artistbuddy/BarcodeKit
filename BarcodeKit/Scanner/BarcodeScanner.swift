@@ -9,18 +9,21 @@
 import UIKit
 import AVFoundation
 
-class BarcodeScanner {
+public class BarcodeScanner {
     private let session: AVCaptureSession
     private let previewView: CaptureVideoPreviewView
-    private let metadataOutput: ScannerMetadataOutput
+    private let metadataOutput: CaptureMetadataOutput
     private lazy var data: [BarcodeData] = []
     
-    init(session: AVCaptureSession, metadataOutput: ScannerMetadataOutput, preview: CaptureVideoPreviewView) {
+    init(session: AVCaptureSession, metadataOutput: CaptureMetadataOutput, preview: CaptureVideoPreviewView) {
         self.session = session
         self.metadataOutput = metadataOutput
         self.previewView = preview
     }
-    
+
+    public convenience init(_ scanner: BarcodeScanner) {
+        self.init(session: scanner.session, metadataOutput: scanner.metadataOutput, preview: scanner.previewView)
+    }
     
     private func processMetadata(_ objects: [AVMetadataObject]) {
         guard let metadataObject = objects.first else {
@@ -35,14 +38,18 @@ class BarcodeScanner {
            return
         }
         
-        let barcode = BarcodeData(value: stringValue)
+        guard let type = BarcodeType.init(metadaObject: readableObject.type) else {
+            return
+        }
+        
+        let barcode = BarcodeData(value: stringValue, type: type)
         
         data.append(barcode)
     }
 }
 
 extension BarcodeScanner: BarcodeScannerCore {
-    func startScanning() {
+    public func startScanning() {
         metadataOutput.metadata = processMetadata
         
         if !session.isRunning {
@@ -50,7 +57,7 @@ extension BarcodeScanner: BarcodeScannerCore {
         }
     }
     
-    func stopScanning() {
+    public func stopScanning() {
         metadataOutput.metadata = nil
         
         if session.isRunning {
@@ -60,11 +67,11 @@ extension BarcodeScanner: BarcodeScannerCore {
 }
 
 extension BarcodeScanner: BarcodeScannerStatus {
-    var isScanning: Bool {
+    public var isScanning: Bool {
         session.isRunning
     }
     
-    var isPreviewing: Bool {
+    public var isPreviewing: Bool {
         previewLayer.isPreviewing
     }
     
@@ -74,13 +81,24 @@ extension BarcodeScanner: BarcodeScannerStatus {
 }
 
 extension BarcodeScanner: BarcodeScannerOutput {
-    var barcodes: [BarcodeData] {
+    public var barcodes: [BarcodeData] {
         return data
     }
 }
 
 extension BarcodeScanner: BarcodeScannerPreview {
-    var videoOutput: UIView {
+    public var videoOutput: UIView {
         previewView
+    }
+}
+
+fileprivate extension BarcodeType {
+    init?(metadaObject: AVMetadataObject.ObjectType) {
+        switch metadaObject {
+        case .upce: self = .upce
+        case .ean8: self = .ean8
+        case .ean13: self = .ean13
+        default: return nil
+        }
     }
 }

@@ -8,6 +8,6 @@
 
 import Foundation
 
-public protocol BarcodeScannerOutput {
+public protocol BarcodeScannerOutput: ObservableObject {
     var barcodes: [BarcodeData] { get }
 }

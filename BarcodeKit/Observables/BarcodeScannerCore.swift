@@ -8,7 +8,7 @@
 
 import AVFoundation
 
-public protocol BarcodeScannerCore {
+public protocol BarcodeScannerCore: ObservableObject {
     func startScanning()
     func stopScanning()
 }

@@ -10,4 +10,5 @@ import Foundation
 
 public struct BarcodeData {
     public let value: String
+    public let type: BarcodeType
 }

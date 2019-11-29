@@ -9,12 +9,16 @@
 import Foundation
 import AVFoundation
 
-class ScannerMetadataOutput: NSObject {
+class CaptureMetadataOutput: NSObject {
     var metadata: (([AVMetadataObject]) -> Void)?
 }
 
-extension ScannerMetadataOutput: AVCaptureMetadataOutputObjectsDelegate {
+extension CaptureMetadataOutput: AVCaptureMetadataOutputObjectsDelegate {
     func metadataOutput(_ output: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection) {
+        guard !metadataObjects.isEmpty else {
+            return
+        }
+        
         metadata?(metadataObjects)
     }
 }
