@@ -48,6 +48,7 @@ public class BarcodeScanner {
     }
 }
 
+// MARK:- BarcodeScannerCore
 extension BarcodeScanner: BarcodeScannerCore {
     public func startScanning() {
         metadataOutput.metadata = processMetadata
@@ -66,6 +67,7 @@ extension BarcodeScanner: BarcodeScannerCore {
     }
 }
 
+// MARK:- BarcodeScannerStatus
 extension BarcodeScanner: BarcodeScannerStatus {
     public var isScanning: Bool {
         session.isRunning
@@ -80,18 +82,21 @@ extension BarcodeScanner: BarcodeScannerStatus {
     }
 }
 
+// MARK:- BarcodeScannerOutput
 extension BarcodeScanner: BarcodeScannerOutput {
     public var barcodes: [BarcodeData] {
         return data
     }
 }
 
+// MARK:- BarcodeScannerPreview
 extension BarcodeScanner: BarcodeScannerPreview {
     public var videoOutput: UIView {
         previewView
     }
 }
 
+// MARK:- Convenience private methods
 fileprivate extension BarcodeType {
     init?(metadaObject: AVMetadataObject.ObjectType) {
         switch metadaObject {
