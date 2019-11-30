@@ -9,5 +9,5 @@
 import Foundation
 
 public enum BarcodeScannerDetector: CaseIterable {
-    case ean8, ean16, upce
+    case ean8, ean13, upce
 }

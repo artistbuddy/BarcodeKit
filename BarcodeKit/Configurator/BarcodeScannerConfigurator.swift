@@ -9,17 +9,18 @@
 import AVFoundation
 
 public class BarcodeScannerConfigurator {
-    private(set) lazy var session = AVCaptureSession()
-    private(set) var input: AVCaptureDeviceInput?
-    private(set) lazy var output: AVCaptureMetadataOutput = {
-        let output = AVCaptureMetadataOutput()
-        output.setMetadataObjectsDelegate(self.metadata, queue: .global(qos: .userInitiated))
-        
-        return output
-    }()
-    private(set) lazy var metadata = CaptureMetadataOutput()
-    private(set) var preview = CaptureVideoPreviewView()
+    private(set) var session: AVCaptureSession
+    private(set) var output: AVCaptureMetadataOutput
+    private(set) var metadata: CaptureMetadataOutput
+    private(set) var preview: CaptureVideoPreviewView
     private(set) lazy var errors: [BarcodeScannerConfiguratorError] = []
+    
+    public init() {
+        session = AVCaptureSession()
+        metadata = CaptureMetadataOutput()
+        output = AVCaptureMetadataOutput()
+        preview = CaptureVideoPreviewView()
+    }
     
     public func attachCamera(_ camera: BarcodeScannerCameraType) -> BarcodeScannerConfigurator {
         if let device = makeCaptureDevice(for: camera), let input = makeCaptureInput(device: device) {
@@ -30,7 +31,10 @@ public class BarcodeScannerConfigurator {
     }
     
     public func addDetectors(_ detectors: [BarcodeScannerDetector]) -> BarcodeScannerConfigurator {
-        output.metadataObjectTypes = detectors.map{ $0.metadataObjectType }
+        attachToSession(session, output: output)
+        
+        output.setMetadataObjectsDelegate(metadata, queue: .global(qos: .userInitiated))
+        output.metadataObjectTypes = detectors.map{ $0.metadataObjectType }.filter{ output.availableMetadataObjectTypes.contains($0) }
         
         return self
     }
@@ -50,7 +54,6 @@ public class BarcodeScannerConfigurator {
         
         return .success(scanner)
     }
-    
     
 }
 
@@ -109,7 +112,7 @@ private extension BarcodeScannerConfigurator {
 fileprivate extension BarcodeScannerDetector {
     var metadataObjectType: AVMetadataObject.ObjectType {
         switch self {
-        case .ean16: return .ean13
+        case .ean13: return .ean13
         case .ean8: return .ean8
         case .upce: return .upce
         }

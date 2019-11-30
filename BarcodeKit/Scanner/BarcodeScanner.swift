@@ -13,12 +13,40 @@ public class BarcodeScanner {
     private let session: AVCaptureSession
     private let previewView: CaptureVideoPreviewView
     private let metadataOutput: CaptureMetadataOutput
-    private lazy var data: [BarcodeData] = []
+    
+    private var data: [BarcodeData] = [] {
+        willSet {
+            objectWillChange.send()
+            print(newValue)
+        }
+    }
+    private var _isPreviewing = false {
+        willSet {
+            objectWillChange.send()
+        }
+    }
+    private var _isScanning = false {
+       willSet {
+           objectWillChange.send()
+       }
+   }
     
     init(session: AVCaptureSession, metadataOutput: CaptureMetadataOutput, preview: CaptureVideoPreviewView) {
         self.session = session
         self.metadataOutput = metadataOutput
         self.previewView = preview
+        
+        setupStatusObservers()
+    }
+    
+    private func setupStatusObservers() {
+        _ = session.observe(\.isRunning, options: .new) { [weak self] (_, value) in
+            self?._isScanning = value.newValue ?? false
+        }
+        
+        _ = previewView.videoLayer.observe(\.isPreviewing, options: .new) { [weak self] (_, value) in
+            self?._isPreviewing = value.newValue ?? false
+        }
     }
 
     public convenience init(_ scanner: BarcodeScanner) {
