@@ -8,7 +8,22 @@
 
 import AVFoundation
 
-public protocol BarcodeScannerCore: ObservableObject {
-    func startScanning()
-    func stopScanning()
+public final class BarcodeScannerCore: ObservableObject {
+    private let session: AVCaptureSession
+    
+    init(session: AVCaptureSession) {
+        self.session = session
+    }
+    
+    public func startScanning() {
+        if !session.isRunning {
+            session.startRunning()
+        }
+    }
+    
+    public func stopScanning() {
+        if session.isRunning {
+            session.stopRunning()
+        }
+    }
 }

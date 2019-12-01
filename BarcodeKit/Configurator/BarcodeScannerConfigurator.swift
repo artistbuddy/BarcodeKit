@@ -50,7 +50,7 @@ public class BarcodeScannerConfigurator {
             return .failure(error)
         }
         
-        let scanner = BarcodeScanner(session: session, metadataOutput: metadata, preview: preview)
+        let scanner = BarcodeScanner(session: session, captureMetadata: metadata, previewView: preview)
         
         return .success(scanner)
     }

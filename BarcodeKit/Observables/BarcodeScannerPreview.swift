@@ -8,6 +8,11 @@
 
 import UIKit
 
-public protocol BarcodeScannerPreview: ObservableObject {
-    var videoOutput: UIView { get }
+public final class BarcodeScannerPreview: ObservableObject {
+    public var videoOutput: UIView { videoPreview }
+    private var videoPreview: CaptureVideoPreviewView
+    
+    init(videoPreview: CaptureVideoPreviewView) {
+        self.videoPreview = videoPreview
+    }
 }

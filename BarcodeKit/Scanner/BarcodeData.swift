@@ -12,3 +12,6 @@ public struct BarcodeData {
     public let value: String
     public let type: BarcodeType
 }
+
+// MARK:- Hashable
+extension BarcodeData: Hashable { }
