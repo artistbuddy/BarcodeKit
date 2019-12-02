@@ -8,8 +8,12 @@
 
 import AVFoundation
 
+/// Current status of Barcode Scanner components.
 public final class BarcodeScannerStatus: ObservableObject {
+    /// Indicating whether scanner is up and running.
     @Published public private(set) var isScanning = false
+    
+    /// Indicating wheter camera is broadcasting video.
     @Published public private(set) var isPreviewing = false
     
     private let session: AVCaptureSession

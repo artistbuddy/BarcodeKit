@@ -8,17 +8,23 @@
 
 import AVFoundation
 
+/// Scanner's found barcodes in given session.
 public final class BarcodeScannerOutput: ObservableObject {
+    /// Detected barcodes from last session.
     @Published public private(set) var barcodes = [BarcodeData]()
     
-    public var mode: Mode = .unique {
+    /// Barcode broadcasting mode.
+    public var mode: Mode = .continuous {
         didSet {
             barcodes.removeAll()
         }
     }
     
     public enum Mode {
+        /// Broadcast every detected barcode.
         case continuous
+        
+        /// Broadcast only unique barcodes.
         case unique
     }
     
@@ -62,6 +68,10 @@ public final class BarcodeScannerOutput: ObservableObject {
                 strongSelf.barcodes.append(barcode)
             }
         }
+    }
+    
+    func clearBarcodes() {
+        barcodes.removeAll()
     }
 }
 

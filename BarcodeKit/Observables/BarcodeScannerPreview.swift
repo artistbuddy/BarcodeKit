@@ -8,7 +8,11 @@
 
 import UIKit
 
+/// Scanner's camera video preview.
 public final class BarcodeScannerPreview: ObservableObject {
+    /// Camera viewfinder output.
+    ///
+    /// Presents user camera preview when scanning is on.
     public var videoOutput: UIView { videoPreview }
     private var videoPreview: CaptureVideoPreviewView
     

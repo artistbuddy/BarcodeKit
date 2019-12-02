@@ -9,6 +9,7 @@
 import UIKit
 import AVFoundation
 
+/// Contains components of barcode scanner.
 public final class BarcodeScanner {
     public let core: BarcodeScannerCore
     public let preview: BarcodeScannerPreview
@@ -16,10 +17,10 @@ public final class BarcodeScanner {
     public let output: BarcodeScannerOutput
     
     init(session: AVCaptureSession, captureMetadata: CaptureMetadataOutput, previewView: CaptureVideoPreviewView) {
-        core = BarcodeScannerCore(session: session)
+        output = BarcodeScannerOutput(captureMetadata: captureMetadata)
+        core = BarcodeScannerCore(session: session, output: output)
         preview = BarcodeScannerPreview(videoPreview: previewView)
         status = BarcodeScannerStatus(session: session, preview: previewView.videoLayer)
-        output = BarcodeScannerOutput(captureMetadata: captureMetadata)
     }
 }
 

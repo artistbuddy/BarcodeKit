@@ -36,6 +36,9 @@
 		7C7E82692391AB5700C83351 /* BarcodeScannerConfiguratorError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C7E82672391AB5700C83351 /* BarcodeScannerConfiguratorError.swift */; };
 		7C7E826E2391AC4E00C83351 /* BarcodeType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C7E826D2391AC4E00C83351 /* BarcodeType.swift */; };
 		7C7E826F2391AC4E00C83351 /* BarcodeType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C7E826D2391AC4E00C83351 /* BarcodeType.swift */; };
+		7CA0158A23959BB900FE5F44 /* BarcodeScannerCamera.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CA0158923959BB900FE5F44 /* BarcodeScannerCamera.swift */; };
+		7CA0158C23959C3D00FE5F44 /* CameraPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CA0158B23959C3D00FE5F44 /* CameraPreview.swift */; };
+		7CA0158E23959C5000FE5F44 /* CameraFailure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CA0158D23959C5000FE5F44 /* CameraFailure.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -68,6 +71,9 @@
 		7C7E82642391AB2600C83351 /* BarcodeScannerDetector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarcodeScannerDetector.swift; sourceTree = "<group>"; };
 		7C7E82672391AB5700C83351 /* BarcodeScannerConfiguratorError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarcodeScannerConfiguratorError.swift; sourceTree = "<group>"; };
 		7C7E826D2391AC4E00C83351 /* BarcodeType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarcodeType.swift; sourceTree = "<group>"; };
+		7CA0158923959BB900FE5F44 /* BarcodeScannerCamera.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarcodeScannerCamera.swift; sourceTree = "<group>"; };
+		7CA0158B23959C3D00FE5F44 /* CameraPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraPreview.swift; sourceTree = "<group>"; };
+		7CA0158D23959C5000FE5F44 /* CameraFailure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraFailure.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,6 +118,7 @@
 			children = (
 				7C57570723905E3F008FCEBB /* BarcodeKit.h */,
 				7C57570823905E3F008FCEBB /* Info.plist */,
+				7CA0158F2395A5F000FE5F44 /* UI */,
 				7C7E826A2391ABAD00C83351 /* Configurator */,
 				7C7E826B2391ABF300C83351 /* Observables */,
 				7C7E826C2391AC1600C83351 /* Scanner */,
@@ -160,6 +167,16 @@
 				7C57573623906A75008FCEBB /* CaptureVideoPreviewView.swift */,
 			);
 			path = Scanner;
+			sourceTree = "<group>";
+		};
+		7CA0158F2395A5F000FE5F44 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				7CA0158923959BB900FE5F44 /* BarcodeScannerCamera.swift */,
+				7CA0158B23959C3D00FE5F44 /* CameraPreview.swift */,
+				7CA0158D23959C5000FE5F44 /* CameraFailure.swift */,
+			);
+			path = UI;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -272,6 +289,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7CA0158C23959C3D00FE5F44 /* CameraPreview.swift in Sources */,
 				7C7E825F2391817300C83351 /* BarcodeScannerConfigurator.swift in Sources */,
 				7C57572823905F5D008FCEBB /* BarcodeScannerOutput.swift in Sources */,
 				7C57573723906A75008FCEBB /* CaptureVideoPreviewView.swift in Sources */,
@@ -284,7 +302,9 @@
 				7C57572E2390631C008FCEBB /* BarcodeScannerPreview.swift in Sources */,
 				7C57571F23905E90008FCEBB /* BarcodeScanner.swift in Sources */,
 				7C57573123906815008FCEBB /* CaptureMetadataOutput.swift in Sources */,
+				7CA0158A23959BB900FE5F44 /* BarcodeScannerCamera.swift in Sources */,
 				7C7E82682391AB5700C83351 /* BarcodeScannerConfiguratorError.swift in Sources */,
+				7CA0158E23959C5000FE5F44 /* CameraFailure.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
