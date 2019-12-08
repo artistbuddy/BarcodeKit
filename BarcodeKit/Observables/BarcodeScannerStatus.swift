@@ -31,11 +31,15 @@ public final class BarcodeScannerStatus: ObservableObject {
     
     private func setupStatusObservers() {
         sessionObserver = session.observe(\.isRunning, options: .new) { [weak self] (_, value) in
-            self?.isScanning = value.newValue ?? false
+            DispatchQueue.main.async {
+                self?.isScanning = value.newValue ?? false
+            }
         }
 
         previewObserver = preview.observe(\.isPreviewing, options: .new) { [weak self] (_, value) in
-            self?.isPreviewing = value.newValue ?? false
+            DispatchQueue.main.async {
+                self?.isPreviewing = value.newValue ?? false
+            }
         }
     }
     

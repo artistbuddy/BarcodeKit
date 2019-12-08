@@ -24,18 +24,27 @@ public final class BarcodeScannerCore: ObservableObject {
     ///
     /// It enables camera preview and clear output.
     public func startScanning() {
-        if !session.isRunning {
-            session.startRunning()
-            output.clearBarcodes()
+        DispatchQueue.global(qos: .userInitiated).async {
+            self.output.clearBarcodes()
+            
+            if !self.session.isRunning {
+                self.session.startRunning()
+            }
         }
+
+        
     }
     
     /// Finish scanning for barcodes.
     ///
-    /// It disables camera preview.
+    /// It disables camera preview and clear output.
     public func stopScanning() {
-        if session.isRunning {
-            session.stopRunning()
+        self.output.clearBarcodes()
+        
+        DispatchQueue.global(qos: .userInitiated).async {
+            if self.session.isRunning {
+                self.session.stopRunning()
+            }
         }
     }
 }

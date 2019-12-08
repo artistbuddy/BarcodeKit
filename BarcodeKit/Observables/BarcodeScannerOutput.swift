@@ -71,7 +71,16 @@ public final class BarcodeScannerOutput: ObservableObject {
     }
     
     func clearBarcodes() {
-        barcodes.removeAll()
+        DispatchQueue.main.async { [weak self] in
+            guard let strongSelf = self else {
+                return
+            }
+            
+            if !strongSelf.barcodes.isEmpty {
+                strongSelf.barcodes.removeAll()
+            }
+        }
+        
     }
 }
 

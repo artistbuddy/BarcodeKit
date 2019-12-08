@@ -12,7 +12,11 @@ struct CameraPreview: UIViewRepresentable {
     @EnvironmentObject private var preview: BarcodeScannerPreview
     
     func makeUIView(context: UIViewRepresentableContext<CameraPreview>) -> UIView {
-        preview.videoOutput
+        preview.videoOutput.videoLayer.videoGravity = .resizeAspectFill
+        // TODO: Detect device orientation
+        //preview.videoOutput.videoLayer.connection?.videoOrientation = .portrait
+        
+        return preview.videoOutput
     }
     
     func updateUIView(_ uiView: UIView, context: UIViewRepresentableContext<CameraPreview>) { }

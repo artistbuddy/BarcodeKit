@@ -13,7 +13,7 @@ public final class BarcodeScannerPreview: ObservableObject {
     /// Camera viewfinder output.
     ///
     /// Presents user camera preview when scanning is on.
-    public var videoOutput: UIView { videoPreview }
+    public var videoOutput: CaptureVideoPreviewView { videoPreview }
     private var videoPreview: CaptureVideoPreviewView
     
     init(videoPreview: CaptureVideoPreviewView) {

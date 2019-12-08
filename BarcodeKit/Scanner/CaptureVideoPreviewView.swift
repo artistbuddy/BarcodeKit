@@ -9,12 +9,12 @@
 import UIKit
 import AVFoundation
 
-class CaptureVideoPreviewView: UIView {
-    override class var layerClass: AnyClass {
+public class CaptureVideoPreviewView: UIView {
+    override public class var layerClass: AnyClass {
         return AVCaptureVideoPreviewLayer.self
     }
     
-    var videoLayer: AVCaptureVideoPreviewLayer {
+    public var videoLayer: AVCaptureVideoPreviewLayer {
         return layer as! AVCaptureVideoPreviewLayer
     }
 }

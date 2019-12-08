@@ -1,5 +1,5 @@
 //
-//  BarcodeScannerView.swift
+//  BarcodeScanner.swift
 //  BarcodeKit
 //
 //  Created by Miniu on 28/11/2019.
