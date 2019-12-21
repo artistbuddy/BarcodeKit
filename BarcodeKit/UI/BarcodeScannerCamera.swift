@@ -28,12 +28,10 @@ public struct BarcodeScannerCamera: View {
     public init() { }
     
     public var body: some View {
-        Group {
-            if status.isPreviewing {
-                CameraPreview()
-            } else {
-                CameraFailure(reason: "")
-            }
+        if status.isPreviewing {
+            return AnyView(CameraPreview())
+        } else {
+            return AnyView(CameraFailure(reason: status.errors.first?.localizedDescription ?? ""))
         }
     }
 }

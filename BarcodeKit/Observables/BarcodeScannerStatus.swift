@@ -16,6 +16,14 @@ public final class BarcodeScannerStatus: ObservableObject {
     /// Indicating wheter camera is broadcasting video.
     @Published public private(set) var isPreviewing = false
     
+    /// Indicating wheter some error occured.
+    ///
+    /// For error details check `errors` property.
+    @Published public private(set) var errorOccured = false
+    
+    /// Contains error value if any.
+    @Published public private(set) var errors = [BarcodeScannerConfiguratorError]()
+    
     private let session: AVCaptureSession
     private let preview: AVCaptureVideoPreviewLayer
     
@@ -46,5 +54,13 @@ public final class BarcodeScannerStatus: ObservableObject {
     deinit {
         sessionObserver?.invalidate()
         previewObserver?.invalidate()
+    }
+    
+    func errorOccured(_ error: BarcodeScannerConfiguratorError) {
+        errors.append(error)
+    }
+    
+    func errorOccured(_ errors: [BarcodeScannerConfiguratorError]) {
+        self.errors.append(contentsOf: errors)
     }
 }

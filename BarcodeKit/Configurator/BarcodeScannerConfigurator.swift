@@ -59,12 +59,11 @@ public class BarcodeScannerConfigurator {
 
 // MARK:- Set of standard configurations
 public extension BarcodeScannerConfigurator {
-    static let `default`: Result<BarcodeScanner, BarcodeScannerConfiguratorError> = {
+    static let `default`: BarcodeScannerConfigurator = {
         BarcodeScannerConfigurator()
             .attachCamera(.builtInWideAngle)
             .addDetectors(BarcodeScannerDetector.allCases)
             .createPreview()
-            .buildScanner()
     }()
 }
 

@@ -22,6 +22,19 @@ public final class BarcodeScanner {
         preview = BarcodeScannerPreview(videoPreview: previewView)
         status = BarcodeScannerStatus(session: session, preview: previewView.videoLayer)
     }
+    
+    /// Build scanner with given configuration.
+    ///
+    /// It calls `buildScanner()` method on configurator.
+    public convenience init(config configurator: BarcodeScannerConfigurator) {
+        _ = configurator.buildScanner()
+        
+        self.init(session: configurator.session, captureMetadata: configurator.metadata, previewView: configurator.preview)
+        
+        if !configurator.errors.isEmpty {
+            status.errorOccured(configurator.errors)
+        }
+    }
 }
 
 
