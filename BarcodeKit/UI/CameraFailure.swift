@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct CameraFailure: View {
-    static let symbol = "video.slash"
+    private static let symbol = "video.slash"
     let reason: String
     
     var body: some View {

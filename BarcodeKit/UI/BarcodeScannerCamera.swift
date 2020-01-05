@@ -8,30 +8,27 @@
 
 import SwiftUI
 
-/// Shows camera video output.
-///
-/// If `BarcodeScanner` is scanning it shows live camera preview otherwise no camera symbol
-///
-/// - Requires: Inject `BarcodeScannerStatus` and `BarcodeScannerPreview`.
-/// ````
-/// var scanner = BarcodeScanner()
-///
-/// var body: some View {
-///     BarcodeScannerCammera()
-///         .environmentObject(scanner.status)
-///         .environmentObject(scanner.preview)
-/// }
-/// ````
+public enum BarcodeScannerState {
+    case scanning(videoPreview: UIView)
+    case failure(reason: String)
+}
+
+/// Shows given camera preview otherwise no camera symbol.
 public struct BarcodeScannerCamera: View {
-    @EnvironmentObject private var status: BarcodeScannerStatus
+    @Binding public var state: BarcodeScannerState
     
-    public init() { }
+    public init(state: Binding<BarcodeScannerState>) {
+        _state = state
+    }
     
     public var body: some View {
-        if status.isPreviewing {
-            return AnyView(CameraPreview())
-        } else {
-            return AnyView(CameraFailure(reason: status.errors.first?.localizedDescription ?? ""))
+        switch state {
+        case .scanning(let preview):
+            return AnyView(CameraPreview(videoOutput: preview))
+            
+        case .failure(let reason):
+            return AnyView(CameraFailure(reason: reason))
+            
         }
     }
 }

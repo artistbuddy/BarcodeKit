@@ -9,14 +9,10 @@
 import SwiftUI
 
 struct CameraPreview: UIViewRepresentable {
-    @EnvironmentObject private var preview: BarcodeScannerPreview
+    let videoOutput: UIView
     
     func makeUIView(context: UIViewRepresentableContext<CameraPreview>) -> UIView {
-        preview.videoOutput.videoLayer.videoGravity = .resizeAspectFill
-        // TODO: Detect device orientation
-        //preview.videoOutput.videoLayer.connection?.videoOrientation = .portrait
-        
-        return preview.videoOutput
+        videoOutput
     }
     
     func updateUIView(_ uiView: UIView, context: UIViewRepresentableContext<CameraPreview>) { }
