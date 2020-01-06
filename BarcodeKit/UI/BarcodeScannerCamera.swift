@@ -9,26 +9,41 @@
 import SwiftUI
 
 public enum BarcodeScannerState {
-    case scanning(videoPreview: UIView)
-    case failure(reason: String)
+    /// Barcode Scanner is properly configured and ready to start scanning.
+    case ready
+    
+    /// Barcode Scanner is running and actively scanning.
+    case scanning
+    
+    /// Barcode Scanner occured some error.
+    case failure
 }
 
-/// Shows given camera preview otherwise no camera symbol.
+/// Shows given camera preview otherwise no camera symbol with message.
 public struct BarcodeScannerCamera: View {
-    @Binding public var state: BarcodeScannerState
+    let state: BarcodeScannerState
+    let preview: UIView
+    let message: String?
     
-    public init(state: Binding<BarcodeScannerState>) {
-        _state = state
+    /// Initializes view for previewing video from scanner camera.
+    ///
+    /// - Parameters:
+    ///     - state: Indicates scanner current status.
+    ///     - preview: View that contains layer of video output from camera.
+    ///     - message: Text for user if for some reason preview isn't available.
+    public init(state: BarcodeScannerState, preview: UIView, message: String? = nil) {
+        self.state = state
+        self.preview = preview
+        self.message = message
     }
     
     public var body: some View {
         switch state {
-        case .scanning(let preview):
+        case .scanning:
             return AnyView(CameraPreview(videoOutput: preview))
             
-        case .failure(let reason):
-            return AnyView(CameraFailure(reason: reason))
-            
+        case .failure, .ready:
+            return AnyView(CameraFailure(reason: message ?? ""))
         }
     }
 }
